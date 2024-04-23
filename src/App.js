@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import {
-  Home,
   PizzaList,
   PizzaView,
   Login,
@@ -18,7 +17,7 @@ import EventView from "./pages/EventView";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<PizzaList />} />
       <Route path="/pizza" element={<PizzaList />} />
       <Route path="/pizza/:id" element={<PizzaView />} />
       <Route path="/branch" element={<BranchList />} />
