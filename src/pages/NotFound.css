@@ -1,0 +1,23 @@
+.NotFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
+.NotFound .inner {
+  color: #666;
+  text-align: center;
+  font-size: 20px;
+}
+.NotFound .error404 {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.NotFound a {
+  display: inline-block;
+  text-decoration: underline;
+  margin-top: 20px;
+  color: #666;
+}
