@@ -1,0 +1,92 @@
+.AdminLayout {
+  position: relative;
+}
+.AdminLayout .content {
+  margin-top: 60px;
+  margin-left: 300px;
+  min-height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+/* Header */
+.Header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  border-bottom: 1px solid #ddd;
+  height: 60px;
+  line-height: 60px;
+  background-color: white;
+  z-index: 100;
+}
+.Header .logo {
+  width: 300px;
+  display: flex;
+  height: 60px;
+  line-height: 60px;
+  align-items: center;
+  border-right: 1px solid #ddd;
+}
+.Header .logo img {
+  height: 51px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 15px;
+}
+/* Sidebar */
+
+.Sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 300px;
+  bottom: 0;
+  overflow: scroll;
+  border-right: 1px solid #ddd;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar .menu {
+  padding: 10px;
+  flex-grow: 1;
+}
+.Sidebar .menu .item {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #666;
+}
+.Sidebar .menu .item:hover {
+  background: #ddd;
+  color: black;
+}
+.Sidebar .submenu {
+  margin: 10px 0;
+}
+.Sidebar .submenu .item {
+  position: relative;
+  padding-left: 30px;
+}
+.Sidebar .submenu .item:before {
+  position: absolute;
+  left: 10px;
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  background-color: #666;
+  content: "";
+}
+.Sidebar button.logout {
+  background-color: #444;
+  border: none;
+  color: white;
+  margin: 10px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
