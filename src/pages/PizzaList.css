@@ -23,9 +23,26 @@
   margin-bottom: 50px;
 }
 .PizzaCard .title {
+  display: flex;
+  align-items: center;
+}
+.PizzaCard .title h2 {
   color: black;
   font-weight: bold;
   font-size: 24px;
+}
+.PizzaCard .title .new {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.PizzaCard .title .new span {
+  background-color: red;
+  color: white;
+  padding: 2px 4px;
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 4px;
 }
 .PizzaCard .price {
   color: black;
@@ -37,4 +54,31 @@
   color: red;
   display: inline-block;
   margin-right: 10px;
+}
+.PizzaCard .thumb {
+  position: relative;
+}
+
+/* InfoIcon */
+.InfoIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  z-index: 100;
+  cursor: pointer;
+}
+.InfoIcon:hover {
+  color: yellow;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.InfoIcon svg {
+  width: 20px;
+  height: 20px;
 }

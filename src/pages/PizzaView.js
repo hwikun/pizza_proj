@@ -3,6 +3,7 @@ import Container from "../components/Container";
 import "./PizzaView.css";
 import { Tabs, Tab } from "../components/Tabs";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function Counter({ defaultValue }) {
   const [value, setValue] = useState(defaultValue);
@@ -83,7 +84,7 @@ export default function PizzaView() {
             <label>토핑 추가</label>
             <div>
               {toppings.map((topping) => (
-                <ToppingCard topping={topping} />
+                <ToppingCard key={uuidv4()} topping={topping} />
               ))}
             </div>
             <label>수량 선택</label>
