@@ -1,4 +1,5 @@
 import "./PizzaModal.css";
+import CloseIcon from "./CloseIcon";
 
 function Accordion() {
   return (
@@ -59,31 +60,10 @@ function Accordion() {
   );
 }
 
-function CloseIcon({ onClick }) {
-  return (
-    <div className="CloseIcon" onClick={onClick}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M6 18 18 6M6 6l12 12"
-        />
-      </svg>
-    </div>
-  );
-}
-
 export default function PizzaModal({ closeModal }) {
   return (
-    <div className="PizzaModal">
-      <div className="panel">
+    <div className="PizzaModal" onClick={closeModal}>
+      <div className="panel" onClick={(e) => e.stopPropagation()}>
         <div className="header">
           <div className="title">맥콘 베이컨+마라 불고기</div>
           <CloseIcon onClick={closeModal} />

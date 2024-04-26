@@ -31,6 +31,7 @@
   background: white;
   z-index: 1000;
 }
+
 .NavBar .top-menu {
   margin-top: 10px;
   height: 50px;
@@ -40,10 +41,14 @@
   justify-content: flex-end;
   gap: 30px;
 }
+.NavBar .top-menu .link,
 .NavBar .top-menu a {
   color: #666;
   text-decoration: none;
+  cursor: pointer;
 }
+
+.NavBar .top-menu .link:hover,
 .NavBar .top-menu a:hover {
   text-decoration: underline;
 }

@@ -12,6 +12,7 @@ import {
   Contact,
   NotFound,
 } from "./pages";
+import Test from "./pages/Test";
 import EventView from "./pages/EventView";
 
 function App() {
@@ -29,8 +30,8 @@ function App() {
       <Route path="/admin" element={<AdminMenu />} />
       <Route path="/admin/menu" element={<AdminMenu />} />
       <Route path="/admin/group" element={<AdminGroup />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/Join" element={<Join />} />
+      <Route path="/join" element={<Join />} />
+      <Route path="/test" element={<Test />} />
       <Route path="/not-found" element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

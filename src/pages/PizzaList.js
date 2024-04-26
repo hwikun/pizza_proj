@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../lib/utils";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Container from "../components/Container";
 import PizzaModal from "../components/PizzaModal";
 import { Tabs, Tab } from "../components/Tabs";
 import { v4 as uuidv4 } from "uuid";
+import useModal from "../hooks/useModal";
 import "./PizzaList.css";
 
 function InfoIcon({ onClick }) {
@@ -31,11 +32,16 @@ function InfoIcon({ onClick }) {
 
 function PizzaCard({ pizza, openModal }) {
   const { id, img, title, price, content, isNew } = pizza;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/pizza/" + id);
+  };
 
   return (
     <>
-      {/* <Link to={`/pizza/${id}`} className="PizzaCard"> */}
-      <div className="PizzaCard">
+      {/* <Link to={`/pizza/${id}`} className="PizzaCard">  */}
+      <div className="PizzaCard" onClick={handleClick}>
         <div className="thumb">
           <img src={img} width="100%" height="100%" />
           <InfoIcon onClick={openModal} />
@@ -55,30 +61,20 @@ function PizzaCard({ pizza, openModal }) {
         <div>#포장 {formatCurrency(price - 1000)}원</div>
         <div>#{content}</div>
       </div>
-      {/* </Link> */}
     </>
   );
 }
 
 export default function PizzaList() {
   const [pizzas, setPizzas] = useState([]);
-  const [open, setOpen] = useState(false);
+  const { isOpen, openModal, closeModal } = useModal();
 
-  // 컴포넌트가 마운트된 후 책 데이터를 로드
   useEffect(() => {
     fetch("http://localhost:5000/api/pizza")
       .then((response) => response.json())
       .then((data) => setPizzas(data))
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
-
-  function openModal() {
-    setOpen(true);
-  }
-
-  function closeModal() {
-    setOpen(false);
-  }
 
   return (
     <>
@@ -95,12 +91,16 @@ export default function PizzaList() {
           </Tabs>
           <div className="PizzaList">
             {pizzas.map((pizza) => (
-              <PizzaCard key={uuidv4()} pizza={pizza} openModal={openModal} />
+              <PizzaCard
+                key={uuidv4()}
+                pizza={pizza}
+                openModal={(e) => openModal(e)}
+              />
             ))}
           </div>
         </Container>
       </Layout>
-      {open && <PizzaModal closeModal={closeModal} />}
+      {isOpen && <PizzaModal closeModal={closeModal} />}
     </>
   );
 }

@@ -1,0 +1,63 @@
+/* LoginModal */
+.LoginModal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+}
+.LoginModal .panel {
+  background-color: white;
+  width: 400px;
+  height: 500px;
+}
+.LoginModal .header {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.LoginModal .header .title {
+  font-weight: bold;
+  font-size: 20px;
+}
+.LoginModal .content {
+  padding: 40px;
+  height: calc(600px - 80px);
+  overflow: scroll;
+}
+.LoginModal .content .main {
+  display: flex;
+  gap: 40px;
+}
+.LoginModal .content .thumb {
+  flex-shrink: 0;
+  width: 400px;
+  margin-bottom: 20px;
+}
+.LoginModal .content .thumb img {
+  width: 100%;
+}
+.LoginModal .content .thumb p {
+  font-size: 14px;
+  color: gray;
+}
+.LoginModal .content .info label {
+  display: block;
+  border-bottom: 2px solid black;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 20px;
+}
+.LoginModal .content .info p {
+  font-size: 20px;
+  color: gray;
+}

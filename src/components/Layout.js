@@ -1,6 +1,8 @@
 import Container from "./Container";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import LoginModal from "./LoginModal";
+import useModal from "../hooks/useModal";
 import "./Layout.css";
 
 function Logo() {
@@ -12,26 +14,32 @@ function Logo() {
 }
 
 function NavBar({ clickMore }) {
+  const { isOpen, openModal, closeModal } = useModal();
   return (
-    <div className="NavBar">
-      <Container>
-        <div className="top-menu">
-          <Logo />
-          <Link to="/login">로그인</Link>
-          <Link to="/join">회원가입</Link>
-        </div>
-        <div className="main-menu">
-          <Link to="/pizza">메뉴</Link>
-          <Link to="/cart">장바구니</Link>
-          <Link to="/event">이벤트</Link>
-          <Link to="/branch">매장검색</Link>
-          <Link to="/contact">고객문의</Link>
-          <div className="more" onClick={clickMore}>
-            더보기
+    <>
+      <div className="NavBar">
+        <Container>
+          <div className="top-menu">
+            <Logo />
+            <span className="link" onClick={openModal}>
+              로그인
+            </span>
+            <Link to="/join">회원가입</Link>
           </div>
-        </div>
-      </Container>
-    </div>
+          <div className="main-menu">
+            <Link to="/pizza">메뉴</Link>
+            <Link to="/cart">장바구니</Link>
+            <Link to="/event">이벤트</Link>
+            <Link to="/branch">매장검색</Link>
+            <Link to="/contact">고객문의</Link>
+            <div className="more" onClick={clickMore}>
+              더보기
+            </div>
+          </div>
+        </Container>
+      </div>
+      {isOpen && <LoginModal closeModal={closeModal} />}
+    </>
   );
 }
 

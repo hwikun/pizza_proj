@@ -1,0 +1,19 @@
+/* InputField */
+.InputField {
+  margin-bottom: 20px;
+}
+.InputField label.label {
+  display: block;
+  color: gray;
+  margin-bottom: 4px;
+}
+
+.InputField input {
+  border: 1px solid gray;
+  padding: 0 10px;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+}
