@@ -70,7 +70,7 @@ export default function PizzaList() {
   const { isOpen, openModal, closeModal } = useModal();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/pizza")
+    fetch("http://localhost:5050/api/pizza")
       .then((response) => response.json())
       .then((data) => setPizzas(data))
       .catch((error) => console.error("Error fetching data: ", error));

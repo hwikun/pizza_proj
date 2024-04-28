@@ -3,67 +3,29 @@ import Container from "../components/Container";
 import PizzaModal from "../components/PizzaModal";
 import { Tabs, Tab } from "../components/Tabs";
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { formatCurrency } from "../lib/utils";
 import useModal from "../hooks/useModal";
-import Counter from "../components/Counter";
 import "./PizzaView.css";
-import { flushSync } from "react-dom";
 
-function ToppingCard({ topping, onChange }) {
-  const { name, imgUrl, price } = topping || {};
-  const [count, setCount] = useState(0);
-
-  const increment = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-
-  const decrement = () => {
-    setCount((prevCount) => (prevCount - 1 < 0 ? 0 : prevCount - 1));
-  };
-
-  useEffect(() => {
-    console.log("useEffect count", count, "name ", name);
-    onChange(name, count);
-  }, []);
-  //   console.log("handleChange " + "/" + count);
-  //   setOrder((prevOrder) => {
-  //     const newOrder = {
-  //       ...prevOrder,
-  //       [name]: count,
-  //     };
-  //     console.log("newOrder " + JSON.stringify(newOrder));
-  //     return newOrder;
-  //   });
-  // },
-  // [order, name]
-  // });
-
+function Counter({ count, increment, decrement }) {
   return (
-    <div className="ToppingCard">
-      <img src={imgUrl} width="60" />
-      <div className="detail">
-        <div className="name">{name}</div>
-        <div className="price">{price}</div>
+    <div className="Counter">
+      <div className="minus button" onClick={decrement}>
+        -
       </div>
-      {/* <Counter name={name} onChange={onChange} /> */}
-      <div className="Counter">
-        <div className="minus button" onClick={decrement}>
-          -
-        </div>
-        <div name="name" className="num">
-          {count}
-        </div>
-        <div className="plus button" onClick={increment}>
-          +
-        </div>
+      <div name="name" className="num">
+        {count}
+      </div>
+      <div className="plus button" onClick={increment}>
+        +
       </div>
     </div>
   );
 }
 
-function Topping({ topping, count, increment, decrement }) {
+function ToppingCard({ topping, count, increment, decrement }) {
   const { imgUrl, name, price } = topping || {};
 
   return (
@@ -73,17 +35,7 @@ function Topping({ topping, count, increment, decrement }) {
         <div className="name">{name}</div>
         <div className="price">{price}</div>
       </div>
-      <div className="Counter">
-        <div className="minus button" onClick={decrement}>
-          -
-        </div>
-        <div name="name" className="num">
-          {count}
-        </div>
-        <div className="plus button" onClick={increment}>
-          +
-        </div>
-      </div>
+      <Counter count={count} increment={increment} decrement={decrement} />
     </div>
   );
 }
@@ -91,15 +43,19 @@ function Topping({ topping, count, increment, decrement }) {
 export default function PizzaView() {
   const { id } = useParams();
   const [nowPizza, setNowPizza] = useState({});
-  const [toppingPrice, setToppingPrice] = useState(0);
   const { isOpen, openModal, closeModal } = useModal();
   const [order, setOrder] = useState({});
+  const [totalCount, setTotalCount] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/api/pizza/${id}`)
+      fetch(`http://localhost:5050/api/pizza/${id}`)
         .then((response) => response.json())
-        .then((data) => setNowPizza(data))
+        .then((data) => {
+          setNowPizza(data);
+          setTotalPrice(data.price);
+        })
         .catch((error) => console.error("Error fetching data: ", error));
     } else {
       setNowPizza({});
@@ -127,45 +83,40 @@ export default function PizzaView() {
     },
   ];
 
-  const increment = (topping) => {
+  const incrementTopping = (topping) => {
     console.log("increment " + topping.name);
-    setOrder({
+    const newOrder = {
       ...order,
       [topping.name]: order[topping.name] ? order[topping.name] + 1 : 1,
-    });
-    console.log("order " + JSON.stringify(order));
+    };
+    setOrder(newOrder);
+    computeTopping(newOrder);
   };
 
-  const decrement = (topping) => {
+  const decrementTopping = (topping) => {
     console.log("decrement " + topping.name);
-    setOrder({
+    console.log("order[topping.name]  " + order[topping.name]);
+    const newOrder = {
       ...order,
-      [topping.name]: order[topping.name] < 0 ? 0 : order[topping.name] - 1,
-    });
-    console.log("order " + JSON.stringify(order));
+      [topping.name]: order[topping.name] > 0 ? order[topping.name] - 1 : 0,
+    };
+    setOrder(newOrder);
+    computeTopping(newOrder);
   };
 
-  // const handleChange = (obj) => {
-  //   const { name, value } = obj || {};
-  //   console.log("handleChange obj", JSON.stringify(obj));
-  //   console.log(" name ", name, "/value", value);
-  //   flushSync(() => {
-  //     setOrder({
-  //       ...order,
-  //       [name]: value,
-  //     });
-  //   });
-  //   // console.log("order " + JSON.stringify(order));
-  // };
+  const computeTopping = (newOrder) => {
+    console.log("computeTopping newOrder" + JSON.stringify(newOrder));
+  };
 
-  // const handleChange = (name, count) => {
-  //   console.log("handleChange name: ", name, "/ count: ", count);
-  // setOrder((prevOrder) => ({
-  //   ...prevOrder,
-  //   [name]: 1,
-  // }));
-  //   console.log("order" + JSON.stringify(order));
-  // };
+  const incrementCount = () => {
+    console.log("incrementCount");
+    setTotalCount(totalCount + 1);
+  };
+
+  const decrementCount = () => {
+    console.log("decrementCount");
+    setTotalCount(totalCount - 1 > 1 ? totalCount - 1 : 1);
+  };
 
   return (
     <>
@@ -203,21 +154,25 @@ export default function PizzaView() {
               <label>토핑 추가</label>
               <div>
                 {toppings.map((topping) => (
-                  <Topping
+                  <ToppingCard
                     key={uuidv4()}
                     topping={topping}
                     count={order[topping.name] || 0}
-                    increment={() => increment(topping)}
-                    decrement={() => decrement(topping)}
+                    increment={() => incrementTopping(topping)}
+                    decrement={() => decrementTopping(topping)}
                   />
                 ))}
               </div>
               <label>수량 선택</label>
-              {/* <Counter defaultValue={1} /> */}
+              <Counter
+                count={totalCount}
+                increment={incrementCount}
+                decrement={decrementCount}
+              />
               <label>총 금액</label>
               <div className="sum">
                 <span>총 금액</span>
-                {nowPizza.price ? formatCurrency(nowPizza.price) : "-"}원 담기
+                {formatCurrency(totalPrice)}원 담기
               </div>
             </div>
           </div>
