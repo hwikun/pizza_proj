@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import {
   PizzaList,
   PizzaView,
-  Login,
   Join,
   ShoppingCart,
   EventList,

@@ -21,6 +21,7 @@ export default function LoginModal({ closeModal }) {
 
     if (!id) {
       setErrorMsg("아이디를 입력해주세요");
+      inputRefs.current.id.fucus();
     } else if (!pw) {
       setErrorMsg("비밀번호를 입력해주세요.");
     } else {
@@ -45,8 +46,9 @@ export default function LoginModal({ closeModal }) {
               type="password"
               ref={(el) => (inputRefs.current.pw = el)}
             />
-            {errorMsg && <div className="error">{errorMsg}</div>}
+            {<div className="error">{errorMsg}</div>}
             <button type="submit">로그인</button>
+            <button>회원가입</button>
           </form>
         </div>
       </div>

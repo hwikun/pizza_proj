@@ -16,7 +16,7 @@
 .LoginModal .panel {
   background-color: white;
   width: 400px;
-  height: 500px;
+  height: 470px;
 }
 .LoginModal .header {
   position: relative;
@@ -60,4 +60,24 @@
 .LoginModal .content .info p {
   font-size: 20px;
   color: gray;
+}
+.LoginModal .error {
+  height: 20px;
+  color: red;
+  margin-bottom: 10px;
+}
+.LoginModal button {
+  background-color: #ddd;
+  margin-bottom: 20px;
+  display: block;
+  border: none;
+  font-size: 18px;
+  height: 48px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.LoginModal button[type="submit"] {
+  background-color: #105adb;
+  color: white;
 }

@@ -8,5 +8,4 @@ export { default as PizzaList } from "./PizzaList";
 export { default as PizzaView } from "./PizzaView";
 export { default as ShoppingCart } from "./ShoppingCart";
 export { default as Contact } from "./Contact";
-export { default as Login } from "./Login";
 export { default as Join } from "./Join";
