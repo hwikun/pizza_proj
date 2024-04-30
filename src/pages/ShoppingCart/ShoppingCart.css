@@ -1,0 +1,142 @@
+.ShoppingCart .cart-table {
+  width: 100%;
+}
+.ShoppingCart .cart-table .header {
+  background-color: #eee;
+  border-top: 1px solid black;
+  font-size: 14px;
+  line-height: 40px;
+  height: 40px;
+  padding: 0 20px;
+}
+.ShoppingCart .cart-table .thead {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #ddd;
+}
+.ShoppingCart .cart-table .th {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+.ShoppingCart .cart-table .tbody .tr {
+  display: flex;
+  width: 100%;
+}
+.ShoppingCart .cart-table .th {
+  padding: 0px 20px;
+}
+.ShoppingCart .cart-table .tbody .tr {
+  border-bottom: 1px solid #ddd;
+}
+.ShoppingCart .cart-table .td {
+  padding: 15px 20px;
+}
+.ShoppingCart .cart-table .th.title,
+.ShoppingCart .cart-table .td.title {
+  flex-grow: 1;
+}
+.ShoppingCart .cart-table .td.title {
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  gap: 20px;
+}
+.ShoppingCart .cart-table .td.title .thumb {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  background-color: #ddd;
+}
+.ShoppingCart .cart-table .th.topping,
+.ShoppingCart .cart-table .td.topping {
+  width: 240px;
+  flex-shrink: 0;
+}
+.ShoppingCart .cart-table .td.topping {
+  font-size: 14px;
+}
+.ShoppingCart .cart-table .td.topping .item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.ShoppingCart .cart-table .td.topping .item span {
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+}
+.ShoppingCart .cart-table .th.count,
+.ShoppingCart .cart-table .td.count {
+  width: 100px;
+  flex-shrink: 0;
+}
+.ShoppingCart .cart-table .td.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ShoppingCart .cart-table .th.price,
+.ShoppingCart .cart-table .td.price {
+  width: 100px;
+  flex-shrink: 0;
+}
+.ShoppingCart .cart-table .td.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ShoppingCart .cart-table .th.delete,
+.ShoppingCart .cart-table .td.delete {
+  width: 100px;
+  flex-shrink: 0;
+}
+.ShoppingCart .cart-table .td.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ShoppingCart .cart-table .x-icon {
+  margin: 0;
+  padding: 0px 6px;
+  padding-bottom: 6px;
+  cursor: pointer;
+}
+.ShoppingCart .cart-table .x-icon:hover {
+  color: red;
+}
+.ShoppingCart .cart-table .footer {
+  display: flex;
+  padding: 30px;
+  justify-content: flex-end;
+  font-size: 18px;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+}
+.ShoppingCart .cart-table .footer .price {
+  font-weight: bold;
+  color: red;
+  display: inline-block;
+  padding-left: 10px;
+}
+.ShoppingCart .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.ShoppingCart .buttons button {
+  background-color: #ddd;
+  margin-bottom: 20px;
+  display: inline-block;
+  border: none;
+  padding: 0px 30px;
+  font-size: 18px;
+  height: 48px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.ShoppingCart .buttons button.order {
+  background-color: #105adb;
+  color: white;
+}

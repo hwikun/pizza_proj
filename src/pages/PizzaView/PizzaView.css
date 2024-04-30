@@ -1,0 +1,113 @@
+/* PizzaView*/
+.PizzaView {
+  display: flex;
+  gap: 50px;
+}
+.PizzaView .thumb {
+  flex-shrink: 0;
+  width: 500px;
+  position: relative;
+}
+.PizzaView .thumb img {
+  max-width: 100%;
+}
+.PizzaView .thumb .button {
+  background: black;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  padding: 5px 30px;
+  cursor: pointer;
+}
+.PizzaView .thumb .button:hover {
+  color: #ddd;
+}
+.PizzaView .info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+.PizzaView .info > .title {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.PizzaView .info > label {
+  display: inline-block;
+  border-top: 2px solid black;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 20px;
+}
+.PizzaView .info > .price {
+  background-color: red;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: right;
+  position: relative;
+}
+.PizzaView .info > .price span {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: inline-block;
+  width: 80px;
+  text-align: center;
+  padding: 20px 0;
+  background-color: rgb(166, 27, 27);
+}
+.PizzaView .info > .sum {
+  margin-bottom: 100px;
+  background-color: red;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: right;
+  position: relative;
+  cursor: pointer;
+}
+.PizzaView .info > .sum span {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: inline-block;
+  width: 130px;
+  text-align: center;
+  padding: 20px 0;
+  background-color: rgb(166, 27, 27);
+}
+
+/* ToppingCard */
+.ToppingCard {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.ToppingCard img {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+.ToppingCard .detail {
+  flex-grow: 1;
+}
+.ToppingCard .detail .price {
+  font-weight: bold;
+}

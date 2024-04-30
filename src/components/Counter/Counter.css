@@ -1,0 +1,31 @@
+/* Couter */
+.Counter {
+  display: flex;
+  height: 40px;
+  font-size: 18px;
+  line-height: 40px;
+}
+.Counter > div {
+  text-align: center;
+}
+.Counter > .num {
+  flex-grow: 1;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  min-width: 40px;
+}
+.Counter > .button {
+  cursor: pointer;
+  user-select: none;
+  width: 40px;
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+}
+.Counter .minus {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.Counter .plus {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}

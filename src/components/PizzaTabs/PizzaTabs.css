@@ -1,0 +1,14 @@
+/* Tabs */
+.Tabs {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  font-size: 16px;
+  border-bottom: 2px solid black;
+  margin-bottom: 40px;
+  color: gray;
+}
+.Tabs .active {
+  color: black;
+  font-weight: bold;
+}
