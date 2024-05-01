@@ -1,0 +1,96 @@
+/* EventList */
+.EventList {
+  width: 100%;
+}
+.EventList a {
+  color: black;
+  text-decoration: none;
+}
+.EventList .header {
+  width: 100%;
+  background-color: #eee;
+  border-top: 1px solid black;
+  font-size: 14px;
+  line-height: 40px;
+  height: 40px;
+  display: flex;
+  gap: 20;
+}
+.EventList .no {
+  padding: 0 20px;
+  width: 100px;
+  flex-shrink: 0;
+}
+.EventList .title {
+  flex-grow: 1;
+}
+.EventList .state {
+  text-align: center;
+  width: 200px;
+  flex-shrink: 0;
+}
+.EventList .date {
+  text-align: center;
+  width: 150px;
+  flex-shrink: 0;
+}
+
+/* EventCard */
+.EventCard {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 14px;
+  line-height: 40px;
+  height: 40px;
+  display: flex;
+  gap: 20;
+  cursor: pointer;
+}
+.EventCard:hover .title {
+  text-decoration: underline;
+}
+
+/* PageNavigation */
+.PageNavigation {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.PageNavigation .prev,
+.PageNavigation .next {
+  cursor: pointer;
+  padding: 0px 20px;
+  height: 30px;
+  line-height: 30px;
+}
+.PageNavigation .prev:hover,
+.PageNavigation .next:hover {
+  text-decoration: underline;
+}
+.PageNavigation .pages {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 40px;
+}
+.PageNavigation .pages .page {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.PageNavigation .pages .page:hover {
+  background-color: #eee;
+}
+.PageNavigation .pages .page.active {
+  background-color: #105adb;
+  color: white;
+}
+.PageNavigation .pages .page.active:hover {
+  background-color: #105adb;
+}

@@ -73,8 +73,6 @@ function NavBar({ clickMore }) {
             <Link to="/pizza">메뉴</Link>
             <Link to="/cart">장바구니</Link>
             <Link to="/event">이벤트</Link>
-            <Link to="/branch">매장검색</Link>
-            <Link to="/contact">고객문의</Link>
             <div className="more" onClick={clickMore}>
               더보기
             </div>

@@ -1,0 +1,13 @@
+/* Join */
+.Join button {
+  background-color: #105adb;
+  color: white;
+  margin-bottom: 20px;
+  display: block;
+  border: none;
+  font-size: 18px;
+  height: 48px;
+  border-radius: 5px;
+  padding: 0px 30px;
+  cursor: pointer;
+}
