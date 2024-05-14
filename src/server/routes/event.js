@@ -1,5 +1,9 @@
+const express = require("express");
+const router = express.Router();
+
 const events = [
   {
+    id: 1,
     title: "5지는 치즈데이. 가정의달은 도미노와 함께!",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1243_eTBAQsir.jpg",
     content: `모든 고객 이용 가능(단, 배달앱 주문 시 혜택 적용 불가)\n
@@ -11,6 +15,7 @@ const events = [
     date: "2024-04-20",
   },
   {
+    id: 2,
     title: "SKT 0day 배달/포장 50% 할인",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1231_GhELVIyL.jpg",
     content: `쿠폰 다운로드 기간: 2024년 4월 10일(수), 4월 20일(토), 4월 30일(화) 3일 중 1일\n
@@ -23,6 +28,7 @@ const events = [
     date: "2024-04-19",
   },
   {
+    id: 3,
     title: "행운뽑기 주인공을 찾아라",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240405_luckydraw/images/img_01_login.jpg",
     content: `이벤트 기간 : 2024년 4월 5일 ~ 5월 2일\n
@@ -39,6 +45,7 @@ const events = [
     date: "2024-04-17",
   },
   {
+    id: 4,
     title: "해피 데일리 피자 쿠폰 챌린지",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240202_hdp/images/1_img_login.jpg",
     content: `이벤트 기간: 2024년 2월 16일 ~ 6월 30일\n
@@ -52,6 +59,7 @@ const events = [
     date: "2024-04-16",
   },
   {
+    id: 5,
     title: "5지는 치즈데이. 가정의달은 도미노와 함께!",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1243_eTBAQsir.jpg",
     content: `모든 고객 이용 가능(단, 배달앱 주문 시 혜택 적용 불가)\n
@@ -63,6 +71,7 @@ const events = [
     date: "2024-04-20",
   },
   {
+    id: 6,
     title: "SKT 0day 배달/포장 50% 할인",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1231_GhELVIyL.jpg",
     content: `쿠폰 다운로드 기간: 2024년 4월 10일(수), 4월 20일(토), 4월 30일(화) 3일 중 1일\n
@@ -75,6 +84,7 @@ const events = [
     date: "2024-04-19",
   },
   {
+    id: 7,
     title: "행운뽑기 주인공을 찾아라",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240405_luckydraw/images/img_01_login.jpg",
     content: `이벤트 기간 : 2024년 4월 5일 ~ 5월 2일\n
@@ -91,6 +101,7 @@ const events = [
     date: "2024-04-17",
   },
   {
+    id: 8,
     title: "해피 데일리 피자 쿠폰 챌린지",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240202_hdp/images/1_img_login.jpg",
     content: `이벤트 기간: 2024년 2월 16일 ~ 6월 30일\n
@@ -104,6 +115,7 @@ const events = [
     date: "2024-04-16",
   },
   {
+    id: 9,
     title: "5지는 치즈데이. 가정의달은 도미노와 함께!",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1243_eTBAQsir.jpg",
     content: `모든 고객 이용 가능(단, 배달앱 주문 시 혜택 적용 불가)\n
@@ -115,6 +127,7 @@ const events = [
     date: "2024-04-20",
   },
   {
+    id: 10,
     title: "SKT 0day 배달/포장 50% 할인",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1231_GhELVIyL.jpg",
     content: `쿠폰 다운로드 기간: 2024년 4월 10일(수), 4월 20일(토), 4월 30일(화) 3일 중 1일\n
@@ -127,6 +140,7 @@ const events = [
     date: "2024-04-19",
   },
   {
+    id: 11,
     title: "행운뽑기 주인공을 찾아라",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240405_luckydraw/images/img_01_login.jpg",
     content: `이벤트 기간 : 2024년 4월 5일 ~ 5월 2일\n
@@ -143,6 +157,7 @@ const events = [
     date: "2024-04-17",
   },
   {
+    id: 12,
     title: "해피 데일리 피자 쿠폰 챌린지",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240202_hdp/images/1_img_login.jpg",
     content: `이벤트 기간: 2024년 2월 16일 ~ 6월 30일\n
@@ -156,6 +171,7 @@ const events = [
     date: "2024-04-16",
   },
   {
+    id: 13,
     title: "5지는 치즈데이. 가정의달은 도미노와 함께!",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1243_eTBAQsir.jpg",
     content: `모든 고객 이용 가능(단, 배달앱 주문 시 혜택 적용 불가)\n
@@ -167,6 +183,7 @@ const events = [
     date: "2024-04-20",
   },
   {
+    id: 14,
     title: "SKT 0day 배달/포장 50% 할인",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1231_GhELVIyL.jpg",
     content: `쿠폰 다운로드 기간: 2024년 4월 10일(수), 4월 20일(토), 4월 30일(화) 3일 중 1일\n
@@ -179,6 +196,7 @@ const events = [
     date: "2024-04-19",
   },
   {
+    id: 15,
     title: "행운뽑기 주인공을 찾아라",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240405_luckydraw/images/img_01_login.jpg",
     content: `이벤트 기간 : 2024년 4월 5일 ~ 5월 2일\n
@@ -195,6 +213,7 @@ const events = [
     date: "2024-04-17",
   },
   {
+    id: 16,
     title: "해피 데일리 피자 쿠폰 챌린지",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240202_hdp/images/1_img_login.jpg",
     content: `이벤트 기간: 2024년 2월 16일 ~ 6월 30일\n
@@ -208,6 +227,7 @@ const events = [
     date: "2024-04-16",
   },
   {
+    id: 17,
     title: "5지는 치즈데이. 가정의달은 도미노와 함께!",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1243_eTBAQsir.jpg",
     content: `모든 고객 이용 가능(단, 배달앱 주문 시 혜택 적용 불가)\n
@@ -219,6 +239,7 @@ const events = [
     date: "2024-04-20",
   },
   {
+    id: 18,
     title: "SKT 0day 배달/포장 50% 할인",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1231_GhELVIyL.jpg",
     content: `쿠폰 다운로드 기간: 2024년 4월 10일(수), 4월 20일(토), 4월 30일(화) 3일 중 1일\n
@@ -231,6 +252,7 @@ const events = [
     date: "2024-04-19",
   },
   {
+    id: 19,
     title: "행운뽑기 주인공을 찾아라",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240405_luckydraw/images/img_01_login.jpg",
     content: `이벤트 기간 : 2024년 4월 5일 ~ 5월 2일\n
@@ -247,6 +269,7 @@ const events = [
     date: "2024-04-17",
   },
   {
+    id: 20,
     title: "해피 데일리 피자 쿠폰 챌린지",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240202_hdp/images/1_img_login.jpg",
     content: `이벤트 기간: 2024년 2월 16일 ~ 6월 30일\n
@@ -260,6 +283,7 @@ const events = [
     date: "2024-04-16",
   },
   {
+    id: 21,
     title: "5지는 치즈데이. 가정의달은 도미노와 함께!",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1243_eTBAQsir.jpg",
     content: `모든 고객 이용 가능(단, 배달앱 주문 시 혜택 적용 불가)\n
@@ -271,6 +295,7 @@ const events = [
     date: "2024-04-20",
   },
   {
+    id: 22,
     title: "SKT 0day 배달/포장 50% 할인",
     img: "https://cdn.dominos.co.kr/renewal2018/w/img/specials_event/1231_GhELVIyL.jpg",
     content: `쿠폰 다운로드 기간: 2024년 4월 10일(수), 4월 20일(토), 4월 30일(화) 3일 중 1일\n
@@ -283,6 +308,7 @@ const events = [
     date: "2024-04-19",
   },
   {
+    id: 23,
     title: "행운뽑기 주인공을 찾아라",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240405_luckydraw/images/img_01_login.jpg",
     content: `이벤트 기간 : 2024년 4월 5일 ~ 5월 2일\n
@@ -299,6 +325,7 @@ const events = [
     date: "2024-04-17",
   },
   {
+    id: 24,
     title: "해피 데일리 피자 쿠폰 챌린지",
     img: "https://cdn.dominos.co.kr/renewal2018/w/event/240202_hdp/images/1_img_login.jpg",
     content: `이벤트 기간: 2024년 2월 16일 ~ 6월 30일\n
@@ -312,3 +339,14 @@ const events = [
     date: "2024-04-16",
   },
 ];
+
+router.get("/", (req, res) => {
+  res.json(events);
+});
+
+router.get("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  res.json(events.find(event => event.id === id));
+});
+
+module.exports = router;

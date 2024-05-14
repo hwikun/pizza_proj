@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+## 1. PizzaList 피자 리스트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [x] 서버로부터 피자 목록을 가져와서 뿌리기
+- [x] 피자 썸네일 오른쪽하단 상세아이콘 클릭시, 해당 피자의 상세 메뉴 보여주기
 
-## Available Scripts
+## 2. PizzaModal 피자 모달
 
-In the project directory, you can run:
+- [x] 피자모달 하단의 정보 부분은 기본적으로 제목만 보이고 클릭시에만 내용이 보이게끔 바꾸기
 
-### `npm start`
+## 3. PizzaView 피자 뷰
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [x] 현재 피자 정보를 가져와서 뿌려주기 (제목, 이미지, 가격, 설명 등)
+- [x] 피자 썸네일 오른쪽하단 상세아이콘 클릭시, 해당 피자의 상세 메뉴 보여주기
+- [x] 피자 토핑 개수 및 피자 개수를 카운터로 증감 할 수 있게 하기
+      (토핑의 최소 개수는 각 0개, 피자의 최소 개수는 1개)
+- [x] 현재 선택한 토핑 및 수량에 따라서 총 가격을 표시할 것
+- [x] 총 가격 버튼을 클릭하면 장바구니 페이지로 넘어가고 현재 주문정보를 세션에 배열 형태로 저장하기
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 4. ShoppingCart 장바구니
 
-### `npm test`
+- [x] 현재까지 세션에 저장된 주문정보들을 장바구니 페이지에서 보여주기
+- [x] 모든 주문정보들을 총 비용을 계산해서 표시하기
+- [x] 장바구니 비우기 버튼 클릭시 모든 장바구니 관련 세션들을 삭제하기
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 5. Join 회원가입
 
-### `npm run build`
+- [x] 아이디와 비밀번호, 비밀번호 확인, 닉네임 정보를 입력받아서 서버에 post 방식으로 보내기
+- [x] 아이디와 비밀번호의 입력가능한 조건을 체크해서 조건에 안맞으면 에러 메시지를 표시하기.
+- [x] 아이디는 영문 소문자, 숫자만 가능 최소 4자 이상
+- [x] 비밀번호는 영문 대/소문자, 숫자, 특수문자 가능, 최소 8자 이상
+- [x] 비밀번호 확인은 기존에 입력한 비밀번호와 내용이 같아야 함.
+- [x] 닉네임은 특수문자는 불가능, 한글, 영문 대소문자, 숫자만 가능.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 6. LoginModal 로그인
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [x] 아이디와 패스워드를 입력받아서 서버에 post 방식으로 보내기
+- [x] 서버에서는 해당 아이디, 패스워드 쌍이 일치하는 user가 있는지 확인해서 로그인 성공,실패 여부를 알려줌
+- [x] 로그인 성공시 해당 유저의 아이디와 닉네임을 세션에 저장하기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 7. Layout 로그아웃
 
-### `npm run eject`
+- [x] 세션에 저장된 유저 아이디와 유저 닉네임을 삭제하기
+- [x] 세션 삭제 후 홈 화면으로 이동하기
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 8. Layout 장바구니
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [x] 현재 장바구니 세션에 저장된 주문 목록의 수를 배지의 숫자로 표기하기
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 9. Layout 로그인
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [x] 현재 로그인 상태라면 유저의 닉네임, 로그아웃 링크, 장바구니 아이콘을 표기하기
+- [x] 현재 로그아웃 상태라면 로그인 링크와 회원가입 링크를 표기하기
 
-## Learn More
+## 10. Event List 이벤트 리스트
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [x] 서버에서 이벤트 데이터를 뿌려주는 api를 만들기
+- [x] EventList 컴포넌트에서는 서버에 요청에서 이벤트 데이터를 받아와서 뿌려주기
+- [x] 한 페이지당 보여주는 최대 글 개수는 10개까지만, 그 이상은 페이지 이동을 해야 보여주게끔 할것
+- [x] 페이지 네비게이션의 숫자를 클릭 시 페이지를 변경하기
+- [x] 이전, 다음 버튼 클릭시 현재 페이지보다 1만큼 증감하기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 11. Event View 이벤트 뷰
 
-### Code Splitting
+- [x] 이벤트 리스트에서 클릭시 해당 정보를 보여줌
+- [x] 서버에서 이벤트의 index를 입력하면 해당 인덱스의 이벤트만 보여주는 api를 만들것
+- [x] 클라이언트에서 /api/event/:index 로 요청해서 해당 이벤트의 데이터를 가져옴
+- [x] 글 제목, 이벤트 상태, 작성일, 이미지, 내용을 가져와서 뿌려줌
+- [x] 글 내용 content는 split()함수를 사용해서 ‘\n’을 기준으로 분리하여 배열로 만든다음 줄 단위로 <p></p> 문단 태그로 감싸서 출력해서 줄바꿈 할 것.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 12. 리액트 소스코드 내에서 절대경로 사용
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [x] jsconfig.json 파일을 프로젝트 최상단에 추가해서 절대경로를 src부터로 지정함
+- [x] 컴포넌트 등을 import할때 src 생략하고 절대경로로 import 할것

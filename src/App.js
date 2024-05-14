@@ -7,7 +7,7 @@ import {
   EventList,
   EventView,
   NotFound,
-} from "./pages";
+} from "pages";
 
 function App() {
   return (

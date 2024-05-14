@@ -1,5 +1,7 @@
 import { Layout, Container, Counter } from "components";
-import "./ShoppingCart.css";
+import "pages/ShoppingCart/ShoppingCart.css";
+import { useEffect, useState } from "react";
+import { useAuth } from "hooks/useAuth";
 
 function XIcon({ w = 10, h = 10, onClick }) {
   return (
@@ -10,8 +12,7 @@ function XIcon({ w = 10, h = 10, onClick }) {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-6 h-6"
-      >
+        className="w-6 h-6">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -22,7 +23,55 @@ function XIcon({ w = 10, h = 10, onClick }) {
   );
 }
 
+function ToppingCard({ topping, deleteTopping }) {
+  const { id, name, price, amount } = topping;
+  return (
+    <div className="item">
+      <span>
+        {name}(+{price}원)x{amount}
+      </span>
+      <span>
+        <XIcon onClick={() => deleteTopping(id)} />
+      </span>
+    </div>
+  );
+}
+
 export default function ShoppingCart() {
+  const { cartItem, setCartItem } = useAuth();
+  const [total, setTotal] = useState(0);
+  const [list, setList] = useState([]);
+  const clearCart = () => {
+    setList([]);
+    sessionStorage.setItem("list", JSON.stringify([]));
+  };
+  const deleteItem = id => {
+    const list = JSON.parse(sessionStorage.getItem("list"));
+    const newList = list.filter(item => item.pizzaId !== id);
+    sessionStorage.setItem("list", JSON.stringify(newList));
+    setCartItem(newList);
+  };
+
+  const deleteTopping = (itemId, toppingId) => {
+    const list = JSON.parse(sessionStorage.getItem("list"));
+    const item = list.find(item => item.id === itemId);
+    const newList = [
+      ...list.filter(item => item.id !== itemId),
+      {
+        ...item,
+        toppings: [item.toppings.filter(item => item.id !== toppingId)],
+      },
+    ];
+  };
+  useEffect(() => {
+    const storage = JSON.parse(sessionStorage.getItem("list") || "[]");
+    setList(storage);
+    const sum = storage
+      .map(item => item.pizzaPrice * item.pizzaAmount + item.toppingPrice)
+      .reduce((sum, price) => sum + price, 0);
+    setTotal(sum);
+    setCartItem(storage.length);
+  }, [cartItem]);
   return (
     <Layout>
       <Container>
@@ -38,108 +87,59 @@ export default function ShoppingCart() {
               <div className="th delete"></div>
             </div>
             <div className="tbody">
-              <div className="tr">
-                <div className="td title">
-                  <div className="thumb">
-                    <img
-                      src="https://cdn.dominos.co.kr/admin/upload/goods/20240326_Td6eyIV8.jpg"
-                      width="100%"
-                      height="100%"
+              {list.map((item, idx) => (
+                <div key={idx} className="tr">
+                  <div className="td title">
+                    <div className="thumb">
+                      <img
+                        src={item.pizzaImg}
+                        width="100%"
+                        height="100%"
+                        alt="이미지"
+                      />
+                    </div>
+                    <div className="info">
+                      <div>
+                        <strong>{item.pizzaTitle}</strong>
+                      </div>
+                      <div>{item.pizzaPrice}원</div>
+                    </div>
+                  </div>
+                  <div className="td topping">
+                    {item.toppings
+                      // .filter(topping => topping.amount !== 0)
+                      .map((topping, index) => (
+                        <ToppingCard
+                          topping={topping}
+                          key={index}
+                          deleteTopping={id => deleteTopping(id)}
+                        />
+                      ))}
+                  </div>
+                  <div className="td count">
+                    <Counter count={item.pizzaAmount} />
+                  </div>
+                  <div className="td price">
+                    {item.pizzaPrice * item.pizzaAmount + item.toppingPrice}원
+                  </div>
+                  <div className="td delete">
+                    <XIcon
+                      w={20}
+                      h={20}
+                      onClick={() => deleteItem(item.pizzaId)}
                     />
                   </div>
-                  <div className="info">
-                    <div>
-                      <strong>맥콘 베이컨+클래식 리코타</strong>
-                    </div>
-                    <div>16,900원</div>
-                  </div>
                 </div>
-                <div className="td topping"></div>
-                <div className="td count">
-                  <Counter count={2} />
-                </div>
-                <div className="td price">33,800원</div>
-                <div className="td delete">
-                  <XIcon w={20} h={20} />
-                </div>
-              </div>
-              <div className="tr">
-                <div className="td title">
-                  <div className="thumb">
-                    <img
-                      src="https://cdn.dominos.co.kr/admin/upload/goods/20240326_Sby1plV9.jpg"
-                      width="100%"
-                      height="100%"
-                    />
-                  </div>
-                  <div className="info">
-                    <div>
-                      <strong>클래식 리코타+소시지 맥스</strong>
-                    </div>
-                    <div>17,400원</div>
-                  </div>
-                </div>
-                <div className="td topping">
-                  <div className="item">
-                    <span>도미노 치즈 100g(+3000원)x1</span>
-                    <span>
-                      <XIcon />
-                    </span>
-                  </div>
-                  <div className="item">
-                    <span>파인애플 40g(8개)(+500원)x1</span>
-                    <span>
-                      <XIcon />
-                    </span>
-                  </div>
-                </div>
-                <div className="td count">
-                  <Counter count={1} />
-                </div>
-                <div className="td price">20,900원</div>
-                <div className="td delete">
-                  <XIcon w={20} h={20} />
-                </div>
-              </div>
-              <div className="tr">
-                <div className="td title">
-                  <div className="thumb">
-                    <img
-                      src="https://cdn.dominos.co.kr/admin/upload/goods/20240326_Sby1plV9.jpg"
-                      width="100%"
-                      height="100%"
-                    />
-                  </div>
-                  <div className="info">
-                    <div>
-                      <strong>클래식 리코타+소시지 맥스</strong>
-                    </div>
-                    <div>17,400원</div>
-                  </div>
-                </div>
-                <div className="td topping">
-                  <div className="item">
-                    <span>파인애플 40g(8개)(+500원)x1</span>
-                    <span>
-                      <XIcon />
-                    </span>
-                  </div>
-                </div>
-                <div className="td count">
-                  <Counter count={1} />
-                </div>
-                <div className="td price">17,900원</div>
-                <div className="td delete">
-                  <XIcon w={20} h={20} />
-                </div>
-              </div>
+              ))}
             </div>
             <div className="footer">
-              주문금액 <span className="price">72,600</span>원
+              주문금액 <span className="price">{total}</span>원
             </div>
           </div>
           <div className="buttons">
-            <button className="clear">장바구니 비우기</button>
+            <button className="clear" onClick={clearCart}>
+              장바구니 비우기
+            </button>
             <button className="order">주문하기</button>
           </div>
         </div>

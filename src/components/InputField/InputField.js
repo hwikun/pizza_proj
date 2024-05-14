@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import "./InputField.css";
+import "components/InputField/InputField.css";
 
 function InputField({ label, type = "text", ...rest }, ref) {
   return (

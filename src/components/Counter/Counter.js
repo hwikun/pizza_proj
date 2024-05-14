@@ -1,4 +1,4 @@
-import "./Counter.css";
+import "components/Counter/Counter.css";
 
 export default function Counter({ count, increment, decrement }) {
   return (

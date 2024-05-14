@@ -52,14 +52,38 @@ const pizzas = [
     content: "7가지 치즈, 스테이크, 슈림프가 겹겹이 쌓인 맛의 품격!",
   },
 ];
+const toppings = [
+  {
+    id: 1,
+    imgUrl: "https://cdn.dominos.co.kr/admin/upload/topping/RTP051.jpg",
+    name: "파인애플 40g(8개)",
+    price: 500,
+  },
+  {
+    id: 2,
+    imgUrl: "https://cdn.dominos.co.kr/admin/upload/topping/RTP036.jpg",
+    name: "도미노치즈 100g",
+    price: 3300,
+  },
+  {
+    id: 3,
+    imgUrl: "https://cdn.dominos.co.kr/admin/upload/topping/RTP059.jpg",
+    name: "올리브 20g",
+    price: 300,
+  },
+];
 
 router.get("/", (req, res) => {
   res.json(pizzas);
 });
 
+router.get("/toppings", (req, res) => {
+  res.json(toppings);
+});
+
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const nowPizza = pizzas.find((pizza) => pizza.id === id);
+  const nowPizza = pizzas.find(pizza => pizza.id === id);
   if (nowPizza) {
     res.json(nowPizza);
   } else {

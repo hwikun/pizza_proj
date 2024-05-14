@@ -1,1 +1,1 @@
-export { default } from "./Counter";
+export { default } from "components/Counter/Counter";

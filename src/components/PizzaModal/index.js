@@ -1,1 +1,1 @@
-export { default } from "./PizzaModal";
+export { default } from "components/PizzaModal/PizzaModal";

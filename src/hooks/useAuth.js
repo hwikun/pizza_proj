@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [userNick, setUserNick] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const [cartItem, setCartItem] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async ({ id, pw }) => {
-    const res = await fetch("http://localhost:5000/api/user/login", {
+    const res = await fetch("http://localhost:8082/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +63,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userId, userNick, isLogin, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        userId,
+        userNick,
+        isLogin,
+        login,
+        logout,
+        cartItem,
+        setCartItem,
+      }}>
       {children}
     </AuthContext.Provider>
   );

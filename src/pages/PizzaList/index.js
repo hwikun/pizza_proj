@@ -1,1 +1,1 @@
-export { default } from "./PizzaList";
+export { default } from "pages/PizzaList/PizzaList";

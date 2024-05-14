@@ -21,9 +21,9 @@ const users = [
 
 router.get("/", (req, res) => {
   res.json(
-    users.map((user) => {
+    users.map(user => {
       return { id: user.id, nick: user.nick };
-    })
+    }),
   );
 });
 
@@ -31,7 +31,7 @@ router.post("/login", (req, res) => {
   const { id, pw } = req.body;
   console.log(`Received id: ${id}, pw: ${pw}`);
 
-  const nowUser = users.find((user) => user.id === id && user.pw === pw);
+  const nowUser = users.find(user => user.id === id && user.pw === pw);
   if (nowUser) {
     res.json({
       ok: true,
@@ -46,6 +46,12 @@ router.post("/login", (req, res) => {
       msg: "아이디 혹은 비밀번호가 잘못되었습니다.",
     });
   }
+});
+
+router.post("/join", (req, res) => {
+  const { id, nickname, pw } = req.body;
+  console.log(`join data: ${id}, ${nickname}, ${pw}`);
+  res.json({ ok: true });
 });
 
 module.exports = router;

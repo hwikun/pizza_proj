@@ -1,1 +1,1 @@
-export { default } from "./PizzaView";
+export { default } from "pages/PizzaView/PizzaView";

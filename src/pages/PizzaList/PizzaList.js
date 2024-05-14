@@ -1,22 +1,25 @@
-import { useEffect, useState } from "react";
 import { formatCurrency } from "lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Layout, Container, PizzaModal, PizzaTabs } from "components";
 import { v4 as uuidv4 } from "uuid";
 import useModal from "hooks/useModal";
-import "./PizzaList.css";
+import "pages/PizzaList/PizzaList.css";
+import { useEffect, useState } from "react";
 
-function InfoIcon({ onClick }) {
+function InfoIcon({ onClick, setPizzaId }) {
+  const handleClick = e => {
+    onClick(e);
+    setPizzaId();
+  };
   return (
-    <div className="InfoIcon" onClick={(e) => onClick(e)}>
+    <div className="InfoIcon" onClick={handleClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-6 h-6"
-      >
+        className="w-6 h-6">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -27,50 +30,45 @@ function InfoIcon({ onClick }) {
   );
 }
 
-function PizzaCard({ pizza, openModal }) {
-  const { id, img, title, price, content, isNew } = pizza;
+function PizzaCard({ openModal, pizza, setPizzaId }) {
+  const { id, img, title, price, isNew, content } = pizza;
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/pizza/" + id);
-  };
-
   return (
-    <>
-      {/* <Link to={`/pizza/${id}`} className="PizzaCard">  */}
-      <div className="PizzaCard" onClick={handleClick}>
-        <div className="thumb">
-          <img src={img} width="100%" height="100%" />
-          <InfoIcon onClick={openModal} />
-        </div>
-        <div className="title">
-          <h2>{title}</h2>
-          {isNew && (
-            <div className="new">
-              <span>new</span>
-            </div>
-          )}
-        </div>
-        <div className="price">
-          <span className="size">L</span>
-          {formatCurrency(price)}원
-        </div>
-        <div>#포장 {formatCurrency(price - 1000)}원</div>
-        <div>#{content}</div>
+    <div className="PizzaCard" onClick={() => navigate(`/pizza/${id}`)}>
+      <div className="thumb">
+        <img src={img} width="100%" height="100%" />
+        <InfoIcon onClick={openModal} setPizzaId={() => setPizzaId(id)} />
       </div>
-    </>
+      <div className="title">
+        <h2>{title}</h2>
+        {isNew ? (
+          <div className="new">
+            <span>new</span>
+          </div>
+        ) : null}
+      </div>
+      <div className="price">
+        <span className="size">L</span>
+        {formatCurrency(price)}원
+      </div>
+      <div>#포장 {formatCurrency(price - 1000)}원</div>
+      <div>#{content}</div>
+    </div>
   );
 }
 
 export default function PizzaList() {
-  const [pizzas, setPizzas] = useState([]);
   const { isOpen, openModal, closeModal } = useModal();
-
+  const [pizzas, setPizzas] = useState([]);
+  const [pizzaId, setPizzaId] = useState(0);
   useEffect(() => {
-    fetch("http://localhost:5000/api/pizza")
-      .then((response) => response.json())
-      .then((data) => setPizzas(data))
-      .catch((error) => console.error("Error fetching data: ", error));
+    (async () => {
+      const data = await (
+        await fetch("http://localhost:8082/api/pizza/")
+      ).json();
+
+      setPizzas(data);
+    })();
   }, []);
 
   return (
@@ -80,17 +78,19 @@ export default function PizzaList() {
           <h1>메뉴</h1>
           <PizzaTabs />
           <div className="PizzaList">
-            {pizzas.map((pizza) => (
-              <PizzaCard
-                key={uuidv4()}
-                pizza={pizza}
-                openModal={(e) => openModal(e)}
-              />
-            ))}
+            {pizzas.length > 0 &&
+              pizzas.map(pizza => (
+                <PizzaCard
+                  key={uuidv4()}
+                  pizza={pizza}
+                  openModal={openModal}
+                  setPizzaId={setPizzaId}
+                />
+              ))}
           </div>
         </Container>
       </Layout>
-      {isOpen && <PizzaModal closeModal={closeModal} />}
+      {isOpen && <PizzaModal pizzaId={pizzaId} closeModal={closeModal} />}
     </>
   );
 }

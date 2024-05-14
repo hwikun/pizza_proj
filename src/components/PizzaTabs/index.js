@@ -1,1 +1,1 @@
-export { default } from "./PizzaTabs";
+export { default } from "components/PizzaTabs/PizzaTabs";
