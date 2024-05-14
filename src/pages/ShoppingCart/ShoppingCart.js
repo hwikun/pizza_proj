@@ -23,7 +23,7 @@ function XIcon({ w = 10, h = 10, onClick }) {
   );
 }
 
-function ToppingCard({ topping, deleteTopping }) {
+function ToppingItem({ topping, deleteTopping }) {
   const { id, name, price, amount } = topping;
   return (
     <div className="item">
@@ -31,8 +31,59 @@ function ToppingCard({ topping, deleteTopping }) {
         {name}(+{price}원)x{amount}
       </span>
       <span>
-        <XIcon onClick={() => deleteTopping(id)} />
+        <XIcon onClick={deleteTopping} />
       </span>
+    </div>
+  );
+}
+
+function PizzaItem({ item, deleteItem, deleteTopping }) {
+  const { pizzaId, pizzaTitle, pizzaPrice, pizzaImg, pizzaAmount, toppings } =
+    item;
+  const [pizzaTotal, setPizzaTotal] = useState(
+    pizzaPrice * pizzaAmount +
+      toppings.reduce((acc, p) => acc + p.price * p.amount, 0),
+  );
+  // useEffect(() => {
+  //   setPizzaTotal(
+  //     pizzaPrice * pizzaAmount +
+  //       toppings.reduce((acc, p) => acc + p.price * p.amount, 0),
+  //   );
+  // }, [pizzaTotal]);
+  return (
+    <div className="tr">
+      <div className="td title">
+        <div className="thumb">
+          <img src={pizzaImg} width="100%" height="100%" alt="이미지" />
+        </div>
+        <div className="info">
+          <div>
+            <strong>{pizzaTitle}</strong>
+          </div>
+          <div>{pizzaPrice}원</div>
+        </div>
+      </div>
+      <div className="td topping">
+        {toppings
+          // .filter(topping => topping.amount !== 0)
+          .map((topping, index) => (
+            <ToppingItem
+              topping={topping}
+              key={index}
+              deleteTopping={() => deleteTopping(pizzaId, topping.id)}
+            />
+          ))}
+      </div>
+      <div className="td count">
+        <Counter count={pizzaAmount} />
+      </div>
+      <div className="td price">
+        {/* {pizzaPrice * pizzaAmount + toppingPrice}원 */}
+        {pizzaTotal}원
+      </div>
+      <div className="td delete">
+        <XIcon w={20} h={20} onClick={() => deleteItem(pizzaId)} />
+      </div>
     </div>
   );
 }
@@ -53,25 +104,39 @@ export default function ShoppingCart() {
   };
 
   const deleteTopping = (itemId, toppingId) => {
+    console.log("deleteTopping");
     const list = JSON.parse(sessionStorage.getItem("list"));
-    const item = list.find(item => item.id === itemId);
-    const newList = [
-      ...list.filter(item => item.id !== itemId),
-      {
-        ...item,
-        toppings: [item.toppings.filter(item => item.id !== toppingId)],
-      },
-    ];
+    const itemIndex = list.findIndex(item => item.id === itemId);
+    if (itemIndex !== -1) {
+      const updatedToppings = list[itemIndex].toppings.filter(
+        topping => topping.id !== toppingId,
+      );
+      const updatedItem = { ...list[itemIndex], toppings: updatedToppings };
+      const newList = [
+        ...list.slice(0, itemIndex),
+        updatedItem,
+        ...list.slice(itemIndex + 1),
+      ];
+      setList(newList);
+      sessionStorage.setItem("list", JSON.stringify(newList));
+    }
   };
   useEffect(() => {
     const storage = JSON.parse(sessionStorage.getItem("list") || "[]");
     setList(storage);
     const sum = storage
-      .map(item => item.pizzaPrice * item.pizzaAmount + item.toppingPrice)
+      .map(
+        item =>
+          item.pizzaPrice * item.pizzaAmount +
+          item.toppings.reduce(
+            (acc, topping) => acc + topping.price * topping.amount,
+            0,
+          ),
+      )
       .reduce((sum, price) => sum + price, 0);
     setTotal(sum);
     setCartItem(storage.length);
-  }, [cartItem]);
+  }, [cartItem]); // list를 의존성 배열에 추가하여 list가 변경될 때마다 useEffect가 실행되도록 함
   return (
     <Layout>
       <Container>
@@ -88,48 +153,14 @@ export default function ShoppingCart() {
             </div>
             <div className="tbody">
               {list.map((item, idx) => (
-                <div key={idx} className="tr">
-                  <div className="td title">
-                    <div className="thumb">
-                      <img
-                        src={item.pizzaImg}
-                        width="100%"
-                        height="100%"
-                        alt="이미지"
-                      />
-                    </div>
-                    <div className="info">
-                      <div>
-                        <strong>{item.pizzaTitle}</strong>
-                      </div>
-                      <div>{item.pizzaPrice}원</div>
-                    </div>
-                  </div>
-                  <div className="td topping">
-                    {item.toppings
-                      // .filter(topping => topping.amount !== 0)
-                      .map((topping, index) => (
-                        <ToppingCard
-                          topping={topping}
-                          key={index}
-                          deleteTopping={id => deleteTopping(id)}
-                        />
-                      ))}
-                  </div>
-                  <div className="td count">
-                    <Counter count={item.pizzaAmount} />
-                  </div>
-                  <div className="td price">
-                    {item.pizzaPrice * item.pizzaAmount + item.toppingPrice}원
-                  </div>
-                  <div className="td delete">
-                    <XIcon
-                      w={20}
-                      h={20}
-                      onClick={() => deleteItem(item.pizzaId)}
-                    />
-                  </div>
-                </div>
+                <PizzaItem
+                  key={idx}
+                  item={item}
+                  deleteItem={deleteItem}
+                  deleteTopping={(itemId, toppingId) =>
+                    deleteTopping(itemId, toppingId)
+                  }
+                />
               ))}
             </div>
             <div className="footer">
