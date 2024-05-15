@@ -37,19 +37,58 @@ function ToppingItem({ topping, deleteTopping }) {
   );
 }
 
-function PizzaItem({ item, deleteItem, deleteTopping }) {
+function PizzaItem({ item, list, setList, deleteItem }) {
   const { pizzaId, pizzaTitle, pizzaPrice, pizzaImg, pizzaAmount, toppings } =
     item;
-  const [pizzaTotal, setPizzaTotal] = useState(
-    pizzaPrice * pizzaAmount +
-      toppings.reduce((acc, p) => acc + p.price * p.amount, 0),
+  const [amount, setAmount] = useState(pizzaAmount);
+  const [toppingPrice, setToppingPrice] = useState(
+    toppings.reduce((acc, topping) => acc + topping.amount * topping.price, 0),
   );
-  // useEffect(() => {
-  //   setPizzaTotal(
-  //     pizzaPrice * pizzaAmount +
-  //       toppings.reduce((acc, p) => acc + p.price * p.amount, 0),
-  //   );
-  // }, [pizzaTotal]);
+  const setPizzaAmount = value => {
+    setAmount(prev => (prev + value < 0 ? 0 : prev + value));
+  };
+
+  const deleteTopping = (itemId, toppingId) => {
+    // const list = JSON.parse(sessionStorage.getItem("list"));
+    const itemIndex = list.findIndex(item => item.pizzaId === itemId);
+    if (itemIndex !== -1) {
+      const updatedToppings = list[itemIndex].toppings.filter(
+        topping => topping.id !== toppingId,
+      );
+      const updatedItem = { ...list[itemIndex], toppings: updatedToppings };
+      const newList = [
+        ...list.slice(0, itemIndex),
+        updatedItem,
+        ...list.slice(itemIndex + 1),
+      ];
+      sessionStorage.setItem("list", JSON.stringify(newList));
+      setToppingPrice(
+        updatedToppings.reduce(
+          (acc, topping) => acc + topping.amount * topping.price,
+          0,
+        ),
+      );
+      setList(newList);
+    }
+  };
+  useEffect(() => {
+    console.log("changed amount");
+
+    const itemIndex = list.findIndex(item => item.pizzaId === pizzaId);
+    if (itemIndex !== -1) {
+      const newItem = {
+        ...list[itemIndex],
+        pizzaAmount: amount,
+      };
+      const newList = [
+        ...list.slice(0, itemIndex),
+        newItem,
+        ...list.slice(itemIndex + 1),
+      ];
+      setList(newList);
+      sessionStorage.setItem("list", JSON.stringify(newList));
+    }
+  }, [amount]);
   return (
     <div className="tr">
       <div className="td title">
@@ -64,23 +103,22 @@ function PizzaItem({ item, deleteItem, deleteTopping }) {
         </div>
       </div>
       <div className="td topping">
-        {toppings
-          // .filter(topping => topping.amount !== 0)
-          .map((topping, index) => (
-            <ToppingItem
-              topping={topping}
-              key={index}
-              deleteTopping={() => deleteTopping(pizzaId, topping.id)}
-            />
-          ))}
+        {toppings.map((topping, index) => (
+          <ToppingItem
+            topping={topping}
+            key={index}
+            deleteTopping={() => deleteTopping(pizzaId, topping.id)}
+          />
+        ))}
       </div>
       <div className="td count">
-        <Counter count={pizzaAmount} />
+        <Counter
+          count={amount}
+          increment={() => setPizzaAmount(1)}
+          decrement={() => setPizzaAmount(-1)}
+        />
       </div>
-      <div className="td price">
-        {/* {pizzaPrice * pizzaAmount + toppingPrice}원 */}
-        {pizzaTotal}원
-      </div>
+      <div className="td price">{pizzaPrice * amount + toppingPrice}원</div>
       <div className="td delete">
         <XIcon w={20} h={20} onClick={() => deleteItem(pizzaId)} />
       </div>
@@ -91,39 +129,23 @@ function PizzaItem({ item, deleteItem, deleteTopping }) {
 export default function ShoppingCart() {
   const { cartItem, setCartItem } = useAuth();
   const [total, setTotal] = useState(0);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(
+    JSON.parse(sessionStorage.getItem("list")) || [],
+  );
   const clearCart = () => {
     setList([]);
     sessionStorage.setItem("list", JSON.stringify([]));
   };
+
   const deleteItem = id => {
     const list = JSON.parse(sessionStorage.getItem("list"));
     const newList = list.filter(item => item.pizzaId !== id);
     sessionStorage.setItem("list", JSON.stringify(newList));
-    setCartItem(newList);
+    setList(newList);
   };
 
-  const deleteTopping = (itemId, toppingId) => {
-    console.log("deleteTopping");
-    const list = JSON.parse(sessionStorage.getItem("list"));
-    const itemIndex = list.findIndex(item => item.id === itemId);
-    if (itemIndex !== -1) {
-      const updatedToppings = list[itemIndex].toppings.filter(
-        topping => topping.id !== toppingId,
-      );
-      const updatedItem = { ...list[itemIndex], toppings: updatedToppings };
-      const newList = [
-        ...list.slice(0, itemIndex),
-        updatedItem,
-        ...list.slice(itemIndex + 1),
-      ];
-      setList(newList);
-      sessionStorage.setItem("list", JSON.stringify(newList));
-    }
-  };
   useEffect(() => {
     const storage = JSON.parse(sessionStorage.getItem("list") || "[]");
-    setList(storage);
     const sum = storage
       .map(
         item =>
@@ -136,7 +158,7 @@ export default function ShoppingCart() {
       .reduce((sum, price) => sum + price, 0);
     setTotal(sum);
     setCartItem(storage.length);
-  }, [cartItem]); // list를 의존성 배열에 추가하여 list가 변경될 때마다 useEffect가 실행되도록 함
+  }, [list]); // list를 의존성 배열에 추가하여 list가 변경될 때마다 useEffect가 실행되도록 함
   return (
     <Layout>
       <Container>
@@ -156,10 +178,12 @@ export default function ShoppingCart() {
                 <PizzaItem
                   key={idx}
                   item={item}
+                  list={list}
+                  setList={setList}
                   deleteItem={deleteItem}
-                  deleteTopping={(itemId, toppingId) =>
-                    deleteTopping(itemId, toppingId)
-                  }
+                  // deleteTopping={(itemId, toppingId) =>
+                  //   deleteTopping(itemId, toppingId)
+                  // }
                 />
               ))}
             </div>
